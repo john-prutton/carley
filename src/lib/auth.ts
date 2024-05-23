@@ -1,5 +1,7 @@
+import { cookies } from "next/headers"
+
 import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle"
-import { Lucia } from "lucia"
+import { Lucia, User } from "lucia"
 
 import { db } from "@/data-access/db"
 import { sessionTable, userTable } from "@/data-access/schema"
@@ -29,4 +31,15 @@ declare module "lucia" {
     Lucia: typeof lucia
     DatabaseUserAttributes: typeof userTable.$inferSelect
   }
+}
+
+export const withUser = async <T>(f: (user: User) => T) => {
+  const sessionCookie = cookies().get(lucia.sessionCookieName)
+  if (!sessionCookie)
+    throw new Error("Unauthenticated: No session cookie found")
+
+  const { session, user } = await lucia.validateSession(sessionCookie.value)
+  if (!session) throw new Error("Unauthenticated: Invalid session")
+
+  return f(user)
 }
