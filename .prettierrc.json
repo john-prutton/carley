@@ -1,0 +1,29 @@
+{
+  "semi": false,
+  "trailingComma": "none",
+
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+
+  "importOrder": [
+    "^next($|/.*)$",
+    "^react($|/.*)$",
+    "",
+    "<BUILTIN_MODULES>",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@repo($|/.*)$",
+    "",
+    "^@/.*$",
+    "",
+    "^[.]",
+    "",
+    ".css$"
+  ],
+
+  "tailwindConfig": "tailwind.config.ts",
+  "tailwindFunctions": ["cva", "clsx", "cn"]
+}
