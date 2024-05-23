@@ -1,3 +1,4 @@
+import { HiddenInput } from "@/components/hidden-input"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -49,7 +50,7 @@ export default async function Page({
 
                 <div className="space-y-1">
                   <Label htmlFor="name">Password</Label>
-                  <Input id="password" name="password" type="password" />
+                  <HiddenInput id="password" name="password" type="password" />
                 </div>
               </CardContent>
               <CardFooter>
@@ -78,12 +79,12 @@ export default async function Page({
 
                 <div className="space-y-1">
                   <Label htmlFor="name">Password</Label>
-                  <Input id="password" name="password" type="password" />
+                  <HiddenInput id="password" name="password" type="password" />
                 </div>
 
                 <div className="space-y-1">
                   <Label htmlFor="name">Confirm password</Label>
-                  <Input
+                  <HiddenInput
                     id="password-confirmation"
                     name="passwordConfirmation"
                     type="password"
