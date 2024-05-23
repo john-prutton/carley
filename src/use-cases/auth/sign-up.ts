@@ -1,5 +1,3 @@
-import "server-only"
-
 import { generateIdFromEntropySize, Scrypt } from "lucia"
 
 import { createUser } from "@/data-access/commands/auth"
@@ -23,6 +21,14 @@ export async function signup(formData: FormData) {
     password.length > 255
   ) {
     throw new Error("Invalid password")
+  }
+
+  const passwordConfirmation = formData.get("passwordConfirmation")
+  if (
+    typeof passwordConfirmation !== "string" ||
+    password !== passwordConfirmation
+  ) {
+    throw new Error("Passwords do not match")
   }
 
   const passwordHash = await new Scrypt().hash(password)
