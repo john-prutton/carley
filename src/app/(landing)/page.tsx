@@ -6,15 +6,15 @@ export default function Home() {
   return (
     <div className="grid h-svh place-content-center">
       <main className="group flex w-fit flex-col items-center gap-y-8">
-        <span className="block text-6xl font-black">Carley</span>
+        <div className="w-fit">
+          <span className=" text-6xl font-black">Carley</span>
+          <span className="-scale-x-100 text-7xl">🍍</span>
+        </div>
         <Button
           asChild
-          className="w-[200%] animate-pulse py-6 text-xl group-hover:animate-none"
+          className="w-[150%] animate-pulse py-6 text-xl group-hover:animate-none"
         >
-          <Link href="/auth">
-            Get Started
-            <span className="ml-2 -scale-x-150 scale-y-150">🍍</span>
-          </Link>
+          <Link href="/home">Get Started</Link>
         </Button>
       </main>
     </div>
