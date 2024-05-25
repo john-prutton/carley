@@ -5,7 +5,11 @@ import { useState } from "react"
 import { useActions, useUIState } from "ai/rsc"
 import { nanoid } from "nanoid"
 
-import { ClientMessage } from "./actions"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+import { Conversation } from "./components"
+import { ClientMessage } from "./types"
 
 export default function Home() {
   const [input, setInput] = useState<string>("")
@@ -14,13 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <div>
-        {conversation.map((message: ClientMessage) => (
-          <div key={message.id}>
-            {message.role}: {message.display}
-          </div>
-        ))}
-      </div>
+      <Conversation conversation={conversation} />
 
       <form
         onSubmit={async (e) => {
@@ -39,14 +37,14 @@ export default function Home() {
           ])
         }}
       >
-        <input
+        <Input
           type="text"
           value={input}
           onChange={(event) => {
             setInput(event.target.value)
           }}
         />
-        <button>Send Message</button>
+        <Button>Send Message</Button>
       </form>
     </div>
   )
