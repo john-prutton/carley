@@ -16,7 +16,7 @@ export function Conversation({
   return (
     <div
       ref={scrollRef}
-      className="-mt-8 space-y-4 overflow-y-scroll pb-4 pt-10"
+      className="-mt-8 space-y-4 overflow-y-scroll px-2 pb-4 pt-10"
     >
       {conversation.map((message: ClientMessage) => message.display)}
     </div>

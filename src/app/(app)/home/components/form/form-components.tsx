@@ -57,8 +57,9 @@ export function FormComponents({
       <div className="flex flex-row gap-2">
         <>
           <Button
-            variant="outline"
+            variant="ghost"
             type="button"
+            className="border"
             disabled={pending}
             onClick={() => imgSelectorRef.current?.click()}
           >
@@ -77,7 +78,12 @@ export function FormComponents({
           />
         </>
 
-        <Input name="textInput" type="text" disabled={pending} />
+        <Input
+          name="textInput"
+          type="text"
+          className="bg-white"
+          disabled={pending}
+        />
 
         <Button type="submit" disabled={pending}>
           {pending ? <Spinner /> : <LucideSend />}

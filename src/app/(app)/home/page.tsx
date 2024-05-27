@@ -8,7 +8,7 @@ export default function Home() {
   const [conversation, setConversation] = useUIState()
 
   return (
-    <div className="flex flex-grow flex-col justify-between overflow-scroll p-2 pt-0">
+    <div className="flex flex-grow flex-col justify-between overflow-scroll">
       <Conversation conversation={conversation} />
 
       <Form setConversation={setConversation} />

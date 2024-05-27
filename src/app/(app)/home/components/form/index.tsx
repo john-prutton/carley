@@ -78,7 +78,10 @@ export function Form({
   }
 
   return (
-    <form action={formAction}>
+    <form
+      action={formAction}
+      className="rounded-t-xl bg-white p-2 drop-shadow-sm"
+    >
       <FormComponents
         imgBase64Url={imgBase64Url}
         setImgBase64Url={setImgBase64Url}
