@@ -1,7 +1,17 @@
-export default async function Page() {
+"use client"
+
+import { useUIState } from "ai/rsc"
+
+import { Conversation, Form } from "./components"
+
+export default function Home() {
+  const [conversation, setConversation] = useUIState()
+
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="flex flex-grow flex-col justify-between overflow-scroll">
+      <Conversation conversation={conversation} />
+
+      <Form setConversation={setConversation} />
     </div>
   )
 }
