@@ -46,3 +46,5 @@ export const messageSchema = z
     (message) => message.textInput || message.fileInput,
     "Must have text or file input"
   )
+
+export type Message = z.infer<typeof messageSchema>
