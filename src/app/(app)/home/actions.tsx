@@ -6,8 +6,8 @@ import { getMutableAIState, streamUI } from "ai/rsc"
 import { nanoid } from "nanoid"
 import { z } from "zod"
 
-import { JokeComponent } from "./joke-component"
-import { jokeSchema } from "./schema"
+import { MealBreakdown } from "./components/meal-breakdown"
+import { mealBreakdownSchema } from "./schema"
 import { ClientMessage, ServerMessage } from "./types"
 
 export async function continueConversation(
@@ -18,6 +18,7 @@ export async function continueConversation(
   const result = await streamUI({
     model: openai("gpt-4o"),
     messages: [...history.get(), { role: "user", content: input }],
+
     text: ({ content, done }) => {
       if (done) {
         history.done((messages: ServerMessage[]) => [
@@ -28,22 +29,28 @@ export async function continueConversation(
 
       return <div>{content}</div>
     },
+
     tools: {
-      tellAJoke: {
-        description: "Tell a joke",
+      analyzeMeal: {
+        description:
+          "Analyze a meal from an image to provide a breakdown of the nutritional information.",
+
         parameters: z.object({
-          location: z.string().describe("the users location")
+          foodImage: z.any().describe("Image of the user's meal.")
         }),
-        generate: async function* ({ location }) {
-          yield <div>loading...</div>
-          const joke = await generateObject({
+
+        generate: async function* ({ foodImage }) {
+          yield <div>analyzing meal...</div>
+
+          const mealBreakdown = await generateObject({
             model: openai("gpt-4o"),
-            schema: jokeSchema,
+            schema: mealBreakdownSchema,
             prompt:
-              "Generate a joke that incorporates the following location:" +
-              location
+              "Analyze this image of the user's meal. As a personal trainer, identify nutritional information such as calories and macros. Here's the image:" +
+              foodImage
           })
-          return <JokeComponent joke={joke.object} />
+
+          return <MealBreakdown mealBreakdown={mealBreakdown.object} />
         }
       }
     }
