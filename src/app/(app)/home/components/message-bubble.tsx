@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority"
 import { ClientMessage } from "../types"
 
 const messageBubbleVariants = cva(
-  "m-1 w-fit max-w-[80%] space-x-2 rounded-xl border bg-background p-2 px-4 shadow",
+  "m-1 w-fit max-w-[80%] rounded-xl border bg-background p-2 px-2 shadow",
   {
     variants: {
       role: {

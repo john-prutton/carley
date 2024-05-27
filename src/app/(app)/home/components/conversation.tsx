@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 
 import { ClientMessage } from "../types"
-import { MessageBubble } from "./message-bubble"
 
 export function Conversation({
   conversation
