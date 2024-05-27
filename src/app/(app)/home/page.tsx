@@ -8,7 +8,7 @@ export default function Home() {
   const [conversation, setConversation] = useUIState()
 
   return (
-    <div className="flex h-svh flex-col justify-between px-2 py-4">
+    <div className="flex flex-grow flex-col justify-between px-2 py-4">
       <Conversation conversation={conversation} />
 
       <Form setConversation={setConversation} />
