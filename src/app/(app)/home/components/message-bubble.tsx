@@ -17,10 +17,12 @@ const messageBubbleVariants = cva(
   }
 )
 
-export function MessageBubble({ message }: { message: ClientMessage }) {
-  return (
-    <div className={messageBubbleVariants({ role: message.role })}>
-      {message.display}
-    </div>
-  )
+export function MessageBubble({
+  role,
+  children
+}: {
+  role: ClientMessage["role"]
+  children: React.ReactNode
+}) {
+  return <div className={messageBubbleVariants({ role })}>{children}</div>
 }

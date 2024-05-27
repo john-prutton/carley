@@ -47,26 +47,20 @@ export function Form({
       {
         ...userMessage,
         display: (
-          <MessageBubble
-            message={{
-              id: userMessage.id,
-              role: "user",
-              display: (
-                <>
-                  {userInput.textInput}
-                  {imgBase64Url && (
-                    <Image
-                      src={imgBase64Url}
-                      alt="user image"
-                      width={128}
-                      height={128}
-                      className="rounded"
-                    />
-                  )}
-                </>
-              ) as React.ReactNode
-            }}
-          />
+          <MessageBubble role="user">
+            <>
+              {userInput.textInput}
+              {imgBase64Url && (
+                <Image
+                  src={imgBase64Url}
+                  alt="user image"
+                  width={128}
+                  height={128}
+                  className="rounded"
+                />
+              )}
+            </>
+          </MessageBubble>
         )
       }
     ])

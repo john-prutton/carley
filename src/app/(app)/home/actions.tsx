@@ -33,11 +33,7 @@ export async function continueConversation(
         ])
       }
 
-      return (
-        <MessageBubble
-          message={{ id: "", role: "assistant", display: content }}
-        />
-      )
+      return <MessageBubble role="assistant">{content}</MessageBubble>
     },
 
     tools: {
