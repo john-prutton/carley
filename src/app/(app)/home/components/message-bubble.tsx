@@ -1,5 +1,7 @@
 import { cva } from "class-variance-authority"
 
+import { cn } from "@/lib/utils"
+
 import { ClientMessage } from "../types"
 
 const messageBubbleVariants = cva(
@@ -19,10 +21,16 @@ const messageBubbleVariants = cva(
 
 export function MessageBubble({
   role,
-  children
+  children,
+  className
 }: {
+  className?: string
   role: ClientMessage["role"]
   children: React.ReactNode
 }) {
-  return <div className={messageBubbleVariants({ role })}>{children}</div>
+  return (
+    <div className={cn(messageBubbleVariants({ role }), className)}>
+      {children}
+    </div>
+  )
 }

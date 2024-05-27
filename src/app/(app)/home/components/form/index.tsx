@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useState } from "react"
 
 import { useActions } from "ai/rsc"
 import { nanoid } from "nanoid"
@@ -43,22 +43,27 @@ export function Form({
       {
         ...userMessage,
         display: (
-          <MessageBubble role="user">
-            <>
-              <p>{userInput.textInput}</p>
+          <>
+            {userInput.textInput && (
+              <MessageBubble role="user">
+                <p>{userInput.textInput}</p>
+              </MessageBubble>
+            )}
 
-              {imgBase64Url && (
-                <div className="relative mt-2 aspect-square w-svw max-w-full">
-                  <Image
-                    src={imgBase64Url}
-                    alt="user image"
-                    fill
-                    className="rounded object-cover"
-                  />
-                </div>
-              )}
-            </>
-          </MessageBubble>
+            {imgBase64Url && (
+              <MessageBubble
+                role="user"
+                className="relative aspect-square w-svw overflow-clip bg-transparent"
+              >
+                <Image
+                  src={imgBase64Url}
+                  alt="user image"
+                  fill
+                  className="object-cover"
+                />
+              </MessageBubble>
+            )}
+          </>
         )
       }
     ])
