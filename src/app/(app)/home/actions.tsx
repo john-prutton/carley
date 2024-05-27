@@ -6,7 +6,9 @@ import { getMutableAIState, streamUI } from "ai/rsc"
 import { nanoid } from "nanoid"
 import { z } from "zod"
 
+import { LoadingBubbles } from "./components/loading-bubbles"
 import { MealBreakdown } from "./components/meal-breakdown"
+import { MessageBubble } from "./components/message-bubble"
 import { mealBreakdownSchema, Message } from "./schema"
 import { ClientMessage, ServerMessage } from "./types"
 import { getUserMessage } from "./util"
@@ -31,7 +33,11 @@ export async function continueConversation(
         ])
       }
 
-      return <div>{content}</div>
+      return (
+        <MessageBubble
+          message={{ id: "", role: "assistant", display: content }}
+        />
+      )
     },
 
     tools: {
@@ -41,8 +47,8 @@ export async function continueConversation(
 
         parameters: z.object({}),
 
-        generate: async function* (params) {
-          yield <div>analyzing meal...</div>
+        generate: async function* () {
+          yield <LoadingBubbles />
 
           const mealBreakdown = await generateObject({
             model: openai("gpt-4o"),

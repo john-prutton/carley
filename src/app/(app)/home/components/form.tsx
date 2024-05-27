@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 
 import { messageSchema } from "../schema"
 import { ClientMessage } from "../types"
+import { MessageBubble } from "./message-bubble"
 
 export function Form({
   setConversation
@@ -40,9 +41,34 @@ export function Form({
       return
     }
 
+    const userMessage = { id: nanoid(), role: "user" }
     setConversation((currentConversation: ClientMessage[]) => [
       ...currentConversation,
-      { id: nanoid(), role: "user", display: userInput.textInput }
+      {
+        ...userMessage,
+        display: (
+          <MessageBubble
+            message={{
+              id: userMessage.id,
+              role: "user",
+              display: (
+                <>
+                  {userInput.textInput}
+                  {imgBase64Url && (
+                    <Image
+                      src={imgBase64Url}
+                      alt="user image"
+                      width={128}
+                      height={128}
+                      className="rounded"
+                    />
+                  )}
+                </>
+              ) as React.ReactNode
+            }}
+          />
+        )
+      }
     ])
 
     const message = await continueConversation(userInput)
