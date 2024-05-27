@@ -7,17 +7,21 @@ import { nanoid } from "nanoid"
 import { z } from "zod"
 
 import { MealBreakdown } from "./components/meal-breakdown"
-import { mealBreakdownSchema } from "./schema"
+import { mealBreakdownSchema, Message } from "./schema"
 import { ClientMessage, ServerMessage } from "./types"
+import { getUserMessage } from "./util"
 
 export async function continueConversation(
-  input: string
+  userInput: Message
 ): Promise<ClientMessage> {
   const history = getMutableAIState()
 
+  const userMessage = await getUserMessage(userInput)
+
   const result = await streamUI({
     model: openai("gpt-4o"),
-    messages: [...history.get(), { role: "user", content: input }],
+
+    messages: [...history.get(), userMessage],
 
     text: ({ content, done }) => {
       if (done) {
@@ -35,19 +39,22 @@ export async function continueConversation(
         description:
           "Analyze a meal from an image to provide a breakdown of the nutritional information.",
 
-        parameters: z.object({
-          foodImage: z.any().describe("Image of the user's meal.")
-        }),
+        parameters: z.object({}),
 
-        generate: async function* ({ foodImage }) {
+        generate: async function* (params) {
           yield <div>analyzing meal...</div>
 
           const mealBreakdown = await generateObject({
             model: openai("gpt-4o"),
             schema: mealBreakdownSchema,
-            prompt:
-              "Analyze this image of the user's meal. As a personal trainer, identify nutritional information such as calories and macros. Here's the image:" +
-              foodImage
+            messages: [
+              {
+                role: "system",
+                content:
+                  "Analyze this image of the user's meal. As a personal trainer, identify nutritional information such as calories and macros. Here's the image:"
+              },
+              userMessage
+            ]
           })
 
           return <MealBreakdown mealBreakdown={mealBreakdown.object} />

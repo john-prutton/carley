@@ -23,13 +23,16 @@ export function Form({
   const [imgBase64Url, setImgBase64Url] = useState<string | null>(null)
 
   const formAction = async (formData: FormData) => {
-    const userInput = {
+    const formInput = {
       textInput: formData.get("textInput"),
       fileInput: formData.get("fileInput")
     }
 
-    const { success: isValidMessage, error } =
-      messageSchema.safeParse(userInput)
+    const {
+      success: isValidMessage,
+      error,
+      data: userInput
+    } = messageSchema.safeParse(formInput)
 
     if (!isValidMessage) {
       alert("Invalid message:" + error.message)
@@ -42,7 +45,7 @@ export function Form({
       { id: nanoid(), role: "user", display: userInput.textInput }
     ])
 
-    const message = await continueConversation(userInput.textInput)
+    const message = await continueConversation(userInput)
 
     setConversation((currentConversation: ClientMessage[]) => [
       ...currentConversation,
