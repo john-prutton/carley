@@ -12,6 +12,8 @@ const foodItemSchema = z.object({
   fats: z.number().describe("fats in the food item in grams")
 })
 
+export type FoodItem = z.infer<typeof foodItemSchema>
+
 export const mealBreakdownSchema = z.object({
   description: z.string().describe("description of the meal"),
   foodItems: z.array(foodItemSchema).describe("the food items in the meal")
