@@ -59,7 +59,14 @@ export async function continueConversation(
             ]
           })
 
-          return <MealBreakdown mealBreakdown={mealBreakdown.object} />
+          return (
+            <>
+              <MessageBubble role="assistant">
+                I&apos;ve analyzed the meal and here&apos;s the breakdown.
+              </MessageBubble>
+              <MealBreakdown mealBreakdown={mealBreakdown.object} />
+            </>
+          )
         }
       }
     }

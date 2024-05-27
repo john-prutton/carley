@@ -3,12 +3,12 @@ import { cva } from "class-variance-authority"
 import { ClientMessage } from "../types"
 
 const messageBubbleVariants = cva(
-  "m-1 w-fit max-w-[80%] rounded-xl border bg-background p-2 px-2 shadow",
+  "m-1 w-fit max-w-[80%] rounded-xl border p-2 px-2 shadow",
   {
     variants: {
       role: {
         user: "ml-auto bg-primary text-primary-foreground",
-        assistant: "mr-auto bg-background text-foreground"
+        assistant: "mr-auto bg-white text-foreground"
       }
     },
     defaultVariants: {
