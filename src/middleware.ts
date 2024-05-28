@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { urlFromBase } from "./lib/utils"
+
 export default async function Middleware(request: NextRequest) {
-  const redirectUrl = request.url
+  const requestUrl = new URL(request.url)
+  const currentPath = requestUrl.pathname + requestUrl.search
 
   const isAuthenticated = (
-    await fetch(new URL("/auth/is-authenticated", redirectUrl), {
+    await fetch(urlFromBase("/auth/is-authenticated"), {
       headers: {
         cookie: request.headers.get("cookie") || ""
       }
@@ -14,9 +17,11 @@ export default async function Middleware(request: NextRequest) {
   if (isAuthenticated) return
 
   return NextResponse.redirect(
-    new URL(
-      "/auth?" + new URLSearchParams({ redirect: redirectUrl }).toString(),
-      redirectUrl
+    urlFromBase(
+      "/auth?" +
+        new URLSearchParams({
+          redirect: urlFromBase(currentPath).toString()
+        }).toString()
     )
   )
 }

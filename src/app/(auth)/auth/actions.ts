@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"
 
 import { Cookie } from "lucia"
 
+import { urlFromBase } from "@/lib/utils"
 import { signin, signup } from "@/use-cases/auth"
 
 const setCookieOrRedirect =
@@ -26,13 +27,16 @@ const setCookieOrRedirect =
 
       if (!signUp) searchParams.delete("signUp")
 
-      return redirect("/auth?" + searchParams.toString())
+      return redirect(
+        urlFromBase("/auth?" + searchParams.toString()).toString()
+      )
     }
 
-    const redirectUrl =
+    const redirectUrl = urlFromBase(
       new URLSearchParams(headers().get("referer")!.split("?")[1]).get(
         "redirect"
       ) ?? "/home"
+    ).toString()
 
     return redirect(redirectUrl)
   }
