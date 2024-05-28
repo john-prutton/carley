@@ -13,12 +13,7 @@ const setCookieOrRedirect =
   async (formData: FormData) => {
     try {
       const sessionCookie = await formAction(formData)
-
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      )
+      cookies().set(sessionCookie)
     } catch (error) {
       const searchParams = new URLSearchParams(
         headers().get("referer")!.split("?")[1]
