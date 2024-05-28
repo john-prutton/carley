@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react"
 
+import { ScrollArea } from "@/components/ui/scroll-area"
+
 import { ClientMessage } from "../types"
 
 export function Conversation({
@@ -14,11 +16,10 @@ export function Conversation({
     }
   })
   return (
-    <div
-      ref={scrollRef}
-      className="-mt-8 space-y-4 overflow-y-scroll px-2 pb-4 pt-10"
-    >
-      {conversation.map((message: ClientMessage) => message.display)}
-    </div>
+    <ScrollArea ref={scrollRef} className="px-2">
+      <div className="space-y-4 py-4">
+        {conversation.map((message: ClientMessage) => message.display)}
+      </div>
+    </ScrollArea>
   )
 }
