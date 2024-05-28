@@ -1,6 +1,6 @@
-import { foodItem } from "../../schema"
+import { FoodItem } from "../../schema"
 
-export function Totals({ foodItemTotals }: { foodItemTotals: foodItem }) {
+export function Totals({ foodItemTotals }: { foodItemTotals: FoodItem }) {
   return (
     <>
       {Object.entries(foodItemTotals)
