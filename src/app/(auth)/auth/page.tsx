@@ -1,4 +1,5 @@
 import { HiddenInput } from "@/components/hidden-input"
+import { SubmitButton } from "@/components/submit-button"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -54,9 +55,12 @@ export default async function Page({
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full">
-                  Sign in
-                </Button>
+                <SubmitButton
+                  content={"Sign in"}
+                  pendingContent={"Signing in..."}
+                  type="submit"
+                  className="w-full"
+                />
               </CardFooter>
             </form>
           </Card>
@@ -92,9 +96,12 @@ export default async function Page({
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" className="w-full">
-                  Sign un
-                </Button>
+                <SubmitButton
+                  content={"Sign up"}
+                  pendingContent={"Signing up..."}
+                  type="submit"
+                  className="w-full"
+                />
               </CardFooter>
             </form>
           </Card>
