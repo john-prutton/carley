@@ -1,4 +1,5 @@
 import { HiddenInput } from "@/components/hidden-input"
+import { SplashLogo } from "@/components/layout/splash-logo"
 import { SubmitButton } from "@/components/submit-button"
 import {
   Card,
@@ -25,26 +26,27 @@ export default async function Page({
 }) {
   return (
     <div className="flex h-svh flex-col items-center justify-center">
-      <h1 className="mb-16 text-5xl font-black sm:text-6xl">Authenticate</h1>
+      <h1 className="hidden">Authentication page</h1>
 
-      <Tabs
-        defaultValue={signUp ? "signup" : "signin"}
-        className="w-[400px] max-w-[90svw]"
-      >
-        <TabsList className="grid w-full grid-cols-2 bg-white">
-          <TabsTrigger value="signin">Sign In</TabsTrigger>
-          <TabsTrigger value="signup">Sign Up</TabsTrigger>
-        </TabsList>
+      <SplashLogo className="mb-8" />
 
-        <TabsContent value="signin">
-          <Card>
+      <Card className="w-5/6 max-w-96">
+        <CardHeader>
+          <CardTitle>Log in to continue</CardTitle>
+
+          <CardDescription>
+            Sit tight! You need to log in to continue.
+          </CardDescription>
+        </CardHeader>
+
+        <Tabs defaultValue={signUp ? "signup" : "signin"}>
+          <TabsList className="grid grid-cols-2 gap-4 bg-white">
+            <TabsTrigger value="signin">Sign In</TabsTrigger>
+            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="signin">
             <form action={tryLogin}>
-              <CardHeader>
-                <CardTitle>Sign In</CardTitle>
-                <CardDescription>
-                  Sign in to your account to continue.
-                </CardDescription>
-              </CardHeader>
               <CardContent className="space-y-2">
                 <div className="space-y-1">
                   <Label htmlFor="username">Username</Label>
@@ -65,18 +67,10 @@ export default async function Page({
                 />
               </CardFooter>
             </form>
-          </Card>
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="signup">
-          <Card>
+          <TabsContent value="signup">
             <form action={trySignup}>
-              <CardHeader>
-                <CardTitle>Sign Up</CardTitle>
-                <CardDescription>
-                  Sign up for an account to continue.
-                </CardDescription>
-              </CardHeader>
               <CardContent className="space-y-2">
                 <div className="space-y-1">
                   <Label htmlFor="username">Username</Label>
@@ -106,9 +100,9 @@ export default async function Page({
                 />
               </CardFooter>
             </form>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          </TabsContent>
+        </Tabs>
+      </Card>
 
       {error && (
         <div className="mt-8 rounded bg-red-100 p-2 text-red-500">{error}</div>
