@@ -11,6 +11,7 @@
   "packageManager": "pnpm@9.1.0",
   "dependencies": {
     "@ai-sdk/openai": "^0.0.14",
+    "@hookform/resolvers": "^3.4.2",
     "@libsql/client": "^0.6.0",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -29,6 +30,7 @@
     "next": "15.0.0-rc.0",
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
+    "react-hook-form": "^7.51.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
