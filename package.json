@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageManager": "pnpm@9.1.0",
   "dependencies": {
     "@ai-sdk/openai": "^0.0.14",
     "@libsql/client": "^0.6.0",
