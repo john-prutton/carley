@@ -7,7 +7,7 @@ export default async function Middleware(request: NextRequest) {
   const currentPath = requestUrl.pathname + requestUrl.search
 
   const isAuthenticated = (
-    await fetch(urlFromBase("/auth/is-authenticated"), {
+    await fetch(urlFromBase("/is-authenticated"), {
       headers: {
         cookie: request.headers.get("cookie") || ""
       }
