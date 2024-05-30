@@ -8,23 +8,35 @@ import { Cookie } from "lucia"
 import { urlFromBase } from "@/lib/utils"
 import { signin, signup } from "@/use-cases/auth"
 
+type AuthActionState =
+  | {
+      error: string
+      initialValues: {
+        username: string
+        password: string
+        passwordConfirmation: string
+      }
+    }
+  | undefined
+
 const setCookieOrRedirect =
   (formAction: (formData: FormData) => Promise<Cookie>, signUp: boolean) =>
-  async (formData: FormData) => {
+  async (
+    previousState: AuthActionState,
+    formData: FormData
+  ): Promise<AuthActionState> => {
     try {
       const sessionCookie = await formAction(formData)
       cookies().set(sessionCookie)
     } catch (error) {
-      const searchParams = new URLSearchParams(
-        headers().get("referer")!.split("?")[1]
-      )
-      searchParams.set("error", `Fatal: ${error}`)
-
-      if (!signUp) searchParams.delete("signUp")
-
-      return redirect(
-        urlFromBase("/auth?" + searchParams.toString()).toString()
-      )
+      return {
+        error: `${error}`,
+        initialValues: {
+          username: formData.get("username") as string,
+          password: formData.get("password") as string,
+          passwordConfirmation: formData.get("passwordConfirmation") as string
+        }
+      }
     }
 
     const redirectUrl = urlFromBase(
@@ -33,8 +45,8 @@ const setCookieOrRedirect =
       ) ?? "/home"
     ).toString()
 
-    return redirect(redirectUrl)
+    redirect(redirectUrl)
   }
 
 export const trySignup = setCookieOrRedirect(signup, true)
-export const tryLogin = setCookieOrRedirect(signin, false)
+export const trySignin = setCookieOrRedirect(signin, false)

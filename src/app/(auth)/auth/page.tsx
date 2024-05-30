@@ -1,3 +1,9 @@
+"use client"
+
+import { useState } from "react"
+
+import { useFormState } from "react-dom"
+
 import { HiddenInput } from "@/components/hidden-input"
 import { SplashLogo } from "@/components/layout/splash-logo"
 import { SubmitButton } from "@/components/submit-button"
@@ -11,19 +17,26 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { tryLogin, trySignup } from "./actions"
+import { trySignin, trySignup } from "./actions"
 
-export default async function Page({
-  searchParams: { error, redirect, signUp }
+export default function Page({
+  searchParams: { redirect, signUp }
 }: {
   searchParams: {
-    error?: string
     redirect?: string
     signUp?: "true"
   }
 }) {
+  const [isSignup, setIsSignup] = useState(!!signUp)
+
+  const handleAction = async (previousState: any, formData: FormData) =>
+    isSignup
+      ? trySignup(previousState, formData)
+      : trySignin(previousState, formData)
+
+  const [formState, formAction] = useFormState(handleAction, undefined)
+
   return (
     <div className="flex h-svh flex-col items-center justify-center">
       <h1 className="hidden">Authentication page</h1>
@@ -32,80 +45,74 @@ export default async function Page({
 
       <Card className="w-5/6 max-w-96">
         <CardHeader>
-          <CardTitle>Log in to continue</CardTitle>
+          <CardTitle>Sit tight!</CardTitle>
 
           <CardDescription>
-            Sit tight! You need to log in to continue.
+            You need to sign {!isSignup ? "in" : "up"} to continue. Afterwards,
+            you&apos;ll be redirected to where you want to go.
           </CardDescription>
         </CardHeader>
 
-        <Tabs defaultValue={signUp ? "signup" : "signin"}>
-          <TabsList className="grid grid-cols-2 gap-4 bg-white">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          </TabsList>
+        <form action={formAction}>
+          <CardContent className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                name="username"
+                defaultValue={`${formState?.initialValues.username ?? ""}`}
+                placeholder="john.doe"
+              />
+            </div>
 
-          <TabsContent value="signin">
-            <form action={tryLogin}>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" name="username" placeholder="john.doe" />
-                </div>
+            <div className="space-y-1">
+              <Label htmlFor="name">Password</Label>
+              <HiddenInput
+                id="password"
+                name="password"
+                type="password"
+                defaultValue={formState?.initialValues.password}
+              />
+            </div>
 
-                <div className="space-y-1">
-                  <Label htmlFor="name">Password</Label>
-                  <HiddenInput id="password" name="password" type="password" />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <SubmitButton
-                  content={"Sign in"}
-                  pendingContent={"Signing in..."}
-                  type="submit"
-                  className="w-full"
+            {isSignup && (
+              <div className="space-y-1">
+                <Label htmlFor="name">Confirm password</Label>
+                <HiddenInput
+                  id="password-confirmation"
+                  name="passwordConfirmation"
+                  type="password"
+                  defaultValue={formState?.initialValues.passwordConfirmation}
                 />
-              </CardFooter>
-            </form>
-          </TabsContent>
+              </div>
+            )}
+          </CardContent>
 
-          <TabsContent value="signup">
-            <form action={trySignup}>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" name="username" placeholder="john.doe" />
-                </div>
-
-                <div className="space-y-1">
-                  <Label htmlFor="name">Password</Label>
-                  <HiddenInput id="password" name="password" type="password" />
-                </div>
-
-                <div className="space-y-1">
-                  <Label htmlFor="name">Confirm password</Label>
-                  <HiddenInput
-                    id="password-confirmation"
-                    name="passwordConfirmation"
-                    type="password"
-                  />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <SubmitButton
-                  content={"Sign up"}
-                  pendingContent={"Signing up..."}
-                  type="submit"
-                  className="w-full"
-                />
-              </CardFooter>
-            </form>
-          </TabsContent>
-        </Tabs>
+          <CardFooter className="flex-col">
+            <SubmitButton
+              content={"Sign in"}
+              pendingContent={"Signing in..."}
+              type="submit"
+              className="w-full"
+            />
+            <span
+              tabIndex={0}
+              onClick={() => setIsSignup((isSignup) => !isSignup)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") setIsSignup((isSignup) => !isSignup)
+              }}
+              className="mt-2 inline-block text-primary decoration-primary hover:underline focus:underline focus:outline-none"
+            >
+              Sign {isSignup ? "in" : "up"} instead
+            </span>
+          </CardFooter>
+        </form>
       </Card>
 
-      {error && (
-        <div className="mt-8 rounded bg-red-100 p-2 text-red-500">{error}</div>
+      {formState?.error && (
+        <div className="mt-8 rounded bg-red-100 p-2 text-red-500">
+          {formState.error}
+        </div>
       )}
     </div>
   )
