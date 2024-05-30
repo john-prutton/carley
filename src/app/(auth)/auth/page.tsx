@@ -25,10 +25,13 @@ export default async function Page({
   }
 }) {
   return (
-    <div className="grid h-svh place-content-center">
-      <h1 className="mb-16 text-6xl font-black">Authenticate</h1>
+    <div className="flex h-svh flex-col items-center justify-center">
+      <h1 className="mb-16 text-5xl font-black sm:text-6xl">Authenticate</h1>
 
-      <Tabs defaultValue={signUp ? "signup" : "signin"} className="w-[400px]">
+      <Tabs
+        defaultValue={signUp ? "signup" : "signin"}
+        className="w-[400px] max-w-[90svw]"
+      >
         <TabsList className="grid w-full grid-cols-2 bg-white">
           <TabsTrigger value="signin">Sign In</TabsTrigger>
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
