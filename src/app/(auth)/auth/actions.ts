@@ -8,34 +8,30 @@ import { Cookie } from "lucia"
 import { urlFromBase } from "@/lib/utils"
 import { signin, signup } from "@/use-cases/auth"
 
-type AuthActionState =
-  | {
-      error: string
-      initialValues: {
-        username: string
-        password: string
-        passwordConfirmation: string
-      }
-    }
-  | undefined
+import {
+  SigninArguments,
+  signinSchema,
+  SignupArguments,
+  signupSchema
+} from "./schema"
 
-const setCookieOrRedirect =
-  (formAction: (formData: FormData) => Promise<Cookie>, signUp: boolean) =>
-  async (
-    previousState: AuthActionState,
-    formData: FormData
-  ): Promise<AuthActionState> => {
+const handleAuthAction =
+  <TData = SignupArguments | SigninArguments>(
+    authAction: (data: TData) => Promise<Cookie>,
+    schema: typeof signupSchema | typeof signinSchema
+  ) =>
+  async (data: TData): Promise<{ error: string } | undefined> => {
+    if (!schema.safeParse(data).success)
+      return {
+        error: "Invalid data"
+      }
+
     try {
-      const sessionCookie = await formAction(formData)
+      const sessionCookie = await authAction(data)
       cookies().set(sessionCookie)
     } catch (error) {
       return {
-        error: `${error}`,
-        initialValues: {
-          username: formData.get("username") as string,
-          password: formData.get("password") as string,
-          passwordConfirmation: formData.get("passwordConfirmation") as string
-        }
+        error: `${error}`
       }
     }
 
@@ -48,5 +44,5 @@ const setCookieOrRedirect =
     redirect(redirectUrl)
   }
 
-export const trySignup = setCookieOrRedirect(signup, true)
-export const trySignin = setCookieOrRedirect(signin, false)
+export const trySignup = handleAuthAction(signup, signupSchema)
+export const trySignin = handleAuthAction(signin, signinSchema)
