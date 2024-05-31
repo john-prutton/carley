@@ -8,7 +8,7 @@ import { useFormStatus } from "react-dom"
 
 import { Spinner } from "@/components/spinner"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 export function FormComponents({
   setImgBase64Url,
@@ -54,7 +54,7 @@ export function FormComponents({
         </div>
       )}
 
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row items-end gap-2">
         <>
           <Button
             variant="ghost"
@@ -78,10 +78,10 @@ export function FormComponents({
           />
         </>
 
-        <Input
+        <Textarea
           name="textInput"
-          type="text"
-          className="bg-white"
+          rows={1}
+          className="max-h-32 min-h-0 resize-none bg-white"
           disabled={pending}
         />
 
