@@ -6,7 +6,7 @@ import { lucia } from "@/lib/auth"
 export async function signup({
   username,
   password,
-  passwordConfirmation
+  passwordConfirmation: _passwordConfirmation
 }: {
   username: string
   password: string

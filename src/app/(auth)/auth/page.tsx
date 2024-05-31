@@ -3,7 +3,7 @@ import { SplashLogo } from "@/components/layout/splash-logo"
 import { AuthForm } from "./components/form"
 
 export default function Page({
-  searchParams: { redirect, signup }
+  searchParams: { redirect: _redirect, signup }
 }: {
   searchParams: {
     redirect?: string

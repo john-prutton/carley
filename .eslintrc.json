@@ -1,6 +1,6 @@
 {
   "extends": "next/core-web-vitals",
-  "plugins": ["tailwindcss"],
+  "plugins": ["tailwindcss", "@typescript-eslint"],
   "settings": {
     "tailwindcss": {
       "callees": ["clsx", "cva", "cn"]
@@ -8,6 +8,17 @@
   },
   "rules": {
     "tailwindcss/no-custom-classname": ["error", {}],
-    "tailwindcss/no-contradicting-classname": ["error", {}]
+    "tailwindcss/no-contradicting-classname": ["error", {}],
+
+    "no-unused-vars": "off",
+
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
   }
 }
