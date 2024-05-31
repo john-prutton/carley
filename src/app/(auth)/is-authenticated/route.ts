@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { withUser } from "@/lib/auth"
+import { withUser } from "@/lib/auth/helpers"
 
 export async function GET(_request: Request) {
   try {
