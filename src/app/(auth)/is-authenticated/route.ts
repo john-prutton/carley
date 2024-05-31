@@ -2,9 +2,9 @@ import { NextResponse } from "next/server"
 
 import { withUser } from "@/lib/auth"
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   try {
-    await withUser((user) => {})
+    await withUser((_user) => {})
 
     return NextResponse.json({ authenticated: true })
   } catch (error) {

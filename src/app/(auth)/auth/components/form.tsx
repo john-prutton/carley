@@ -66,6 +66,7 @@ export function AuthForm({
                 Afterwards, you&apos;ll be redirected to where you want to go.
               </CardDescription>
             </CardHeader>
+
             <form onSubmit={onSubmit}>
               <fieldset
                 disabled={
@@ -79,8 +80,9 @@ export function AuthForm({
                       You&apos;ve successfully signed {signup ? "up" : "in"}!
                     </div>
                   )}
+
                   {form.formState.errors.root && (
-                    <div className="duration-[5_000] rounded bg-red-100 p-2 text-red-500 fade-out-0">
+                    <div className="rounded bg-red-100 p-2 text-red-500">
                       {form.formState.errors.root.message}
                     </div>
                   )}
