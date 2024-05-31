@@ -83,6 +83,12 @@ export function FormComponents({
           rows={1}
           className="max-h-32 min-h-0 resize-none bg-white"
           disabled={pending}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault()
+              event.currentTarget.value += "\n"
+            }
+          }}
         />
 
         <Button type="submit" disabled={pending}>
