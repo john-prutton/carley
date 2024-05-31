@@ -1,8 +1,6 @@
-import { Cookie } from "lucia"
-
 import { lucia } from "@/lib/auth"
 
-export async function signin({ cookie }: { cookie: Cookie }) {
-  await lucia.invalidateSession(cookie.value)
+export async function signout(sessionToken: string) {
+  await lucia.invalidateSession(sessionToken)
   return lucia.createBlankSessionCookie()
 }
