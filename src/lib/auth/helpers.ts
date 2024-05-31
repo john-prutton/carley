@@ -14,3 +14,15 @@ export const withUser = async <T>(f: (user: User) => T) => {
 
   return f(user)
 }
+
+export const safeWithUser = async <T>(f: (user: User) => T) => {
+  try {
+    return {
+      user: await withUser(f)
+    }
+  } catch (error) {
+    return {
+      error: `${error}`
+    }
+  }
+}
