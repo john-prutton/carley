@@ -53,7 +53,7 @@ export function Form({
             {imgBase64Url && (
               <MessageBubble
                 role="user"
-                className="relative aspect-square w-svw overflow-clip bg-transparent"
+                className="relative aspect-square w-svw max-w-48 overflow-clip bg-transparent"
               >
                 <Image
                   src={imgBase64Url}
