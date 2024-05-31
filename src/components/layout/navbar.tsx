@@ -1,4 +1,4 @@
-import { ProfileQuickActions } from "../profile-quick-actions"
+import { ProfileDropdownMenu } from "../profile-dropdown-menu"
 
 export function Navbar() {
   return (
@@ -10,7 +10,7 @@ export function Navbar() {
         </span>
       </div>
 
-      <ProfileQuickActions />
+      <ProfileDropdownMenu />
     </nav>
   )
 }
