@@ -2,7 +2,7 @@
 
 import { useUIState } from "ai/rsc"
 
-import { Conversation, Form } from "./components"
+import { Conversation, Form } from "./lib/components"
 
 export default function Home() {
   const [conversation, setConversation] = useUIState()
