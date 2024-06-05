@@ -1,66 +1,20 @@
-// "use server"
-
 import "server-only"
 
 import { openai } from "@ai-sdk/openai"
-import { CoreUserMessage, generateObject, ImagePart, TextPart } from "ai"
+import { generateObject } from "ai"
 import { getMutableAIState, streamUI } from "ai/rsc"
 import { nanoid } from "nanoid"
 import { z } from "zod"
 
-import { MealBreakdown, mealBreakdownSchema, Message } from "./schemas"
+import { LoadingBubbles } from "../components/loading-bubbles"
+import { MealBreakdown } from "../components/meal-breakdown"
+import { MessageBubble } from "../components/message-bubble"
+import { mealBreakdownSchema, Message } from "../schema"
+import { ClientMessage, ServerMessage } from "../types"
+import { getUserMessage } from "./get-user-message"
 
-interface ServerMessage {
-  role: "user" | "assistant"
-  content: string
-}
-
-interface ClientMessage {
-  id: string
-  role: "user" | "assistant"
-  display: React.ReactNode
-}
-
-async function getUserMessage(message: Message) {
-  // get the text and image parts from the user input
-  const textPart: TextPart | undefined = message.textInput
-    ? {
-        type: "text",
-        text: message.textInput
-      }
-    : undefined
-  const imagePart: ImagePart | undefined = message.fileInput
-    ? {
-        type: "image",
-        image: await message.fileInput.arrayBuffer()
-      }
-    : undefined
-
-  const userMessage: CoreUserMessage = {
-    role: "user",
-    content: [
-      ...(textPart ? [textPart] : []),
-      ...(imagePart ? [imagePart] : [])
-    ]
-  }
-
-  return userMessage
-}
-
-export async function continueConversation(
-  userInput: Message,
-  {
-    MessageBubble = (props) => JSON.stringify(props),
-    Loader = (props) => JSON.stringify(props),
-    MealBreakdown = (props) => JSON.stringify(props)
-  }: {
-    Loader?: React.FC<{}>
-    MessageBubble?: React.FC<{
-      role: "assistant" | "user"
-      children: React.ReactNode
-    }>
-    MealBreakdown?: React.FC<{ mealBreakdown: MealBreakdown }>
-  }
+export async function generateChatResponse(
+  userInput: Message
 ): Promise<ClientMessage> {
   const history = getMutableAIState()
 
@@ -90,7 +44,7 @@ export async function continueConversation(
         parameters: z.object({}),
 
         generate: async function* () {
-          yield <Loader />
+          yield <LoadingBubbles />
 
           const mealBreakdown = await generateObject({
             model: openai("gpt-4o"),
