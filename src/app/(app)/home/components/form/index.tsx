@@ -16,7 +16,7 @@ export function Form({
 }: {
   setConversation: (conversation: any) => void
 }) {
-  const { continueConversation } = useActions()
+  const { tryContinueConversation } = useActions()
   const [imgBase64Url, setImgBase64Url] = useState<string | null>(null)
 
   const formAction = async (formData: FormData) => {
@@ -68,7 +68,7 @@ export function Form({
       }
     ])
 
-    const message = await continueConversation(userInput)
+    const message = await tryContinueConversation(userInput)
 
     setImgBase64Url(null)
     setConversation((currentConversation: ClientMessage[]) => [
