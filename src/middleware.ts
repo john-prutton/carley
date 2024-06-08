@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { urlFromBase } from "./lib/utils"
+import { urlFromBase } from "./lib/utils/url-from-base"
 
 export default async function Middleware(request: NextRequest) {
   const requestUrl = new URL(request.url)

@@ -1,6 +1,6 @@
 import { LucideLoader2, LucideProps } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn"
 
 export function Spinner({
   className,
