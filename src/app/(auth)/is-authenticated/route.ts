@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server"
 
-import { withUser } from "@/lib/auth/helpers"
+import { AuthService } from "@/lib/infrastructure/services"
 
-export async function GET(_request: Request) {
-  try {
-    await withUser((_user) => {})
-
-    return NextResponse.json({ authenticated: true })
-  } catch (error) {
-    return NextResponse.json({ authenticated: false }, { status: 401 })
-  }
+export async function GET(request: Request) {
+  const sessionId = AuthService.readSessionCookie(
+    request.headers.get("cookie") || ""
+  )
+  const isAuthenticated =
+    sessionId && !!(await AuthService.validateSession(sessionId)).user
+  return NextResponse.json({}, { status: isAuthenticated ? 200 : 401 })
 }

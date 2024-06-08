@@ -1,12 +1,10 @@
-import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle"
 import { Lucia } from "lucia"
 
-import { db } from "@/data-access/db"
-import { sessionTable, userTable } from "@/data-access/schema"
+import { UserEntity } from "@/lib/core/domain/entities/User"
 
-const adapter = new DrizzleSQLiteAdapter(db, sessionTable, userTable)
+import { AuthRepository } from "../../data-access/repositories"
 
-export const lucia = new Lucia(adapter, {
+export const lucia = new Lucia(AuthRepository, {
   sessionCookie: {
     // this sets cookies with super long expiration
     // since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages
@@ -27,6 +25,6 @@ export const lucia = new Lucia(adapter, {
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia
-    DatabaseUserAttributes: typeof userTable.$inferSelect
+    DatabaseUserAttributes: UserEntity
   }
 }
