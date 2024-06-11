@@ -1,4 +1,3 @@
-import { DeepPartial } from "ai"
 import { z } from "zod"
 
 const foodItemSchema = z.object({
@@ -19,4 +18,4 @@ export const mealBreakdownSchema = z.object({
   foodItems: z.array(foodItemSchema).describe("the food items in the meal")
 })
 
-export type MealBreakdown = DeepPartial<typeof mealBreakdownSchema>
+export type MealBreakdown = z.infer<typeof mealBreakdownSchema>

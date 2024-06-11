@@ -7,9 +7,9 @@ import { z } from "zod"
 import { LoadingBubbles, MessageBubble } from "@/components/chat"
 import { MealBreakdown } from "@/components/meal-breakdown"
 import { ServerMessage } from "@/lib/core/domain/entities/Chat"
+import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
 import { IAIService, UserInput } from "@/lib/core/services/IAIService"
 
-import { mealBreakdownSchema } from "./schemas"
 import { getUserMessage } from "./util"
 
 export const AIService: IAIService = {
