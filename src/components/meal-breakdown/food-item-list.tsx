@@ -4,8 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
-
-import { FoodItem } from "../../schema"
+import { FoodItem } from "@/lib/infrastructure/services/AIService/schemas"
 
 export function FoodItemList({ foodItems }: { foodItems: FoodItem[] }) {
   return (

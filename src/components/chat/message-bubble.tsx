@@ -1,8 +1,7 @@
 import { cva } from "class-variance-authority"
 
+import { ClientMessage } from "@/lib/core/domain/entities/Chat"
 import { cn } from "@/lib/utils/cn"
-
-import { ClientMessage } from "../types"
 
 const messageBubbleVariants = cva(
   "m-1 w-fit max-w-[80%] rounded-xl border p-2 px-2 shadow",

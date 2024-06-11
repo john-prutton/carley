@@ -1,10 +1,9 @@
 "use server"
 
+import { MessageBubble } from "@/components/chat/message-bubble"
 import { continueConversation } from "@/lib/core/application/use-cases/ai/chat"
-
-import { MessageBubble } from "../components/message-bubble"
-import { Message } from "../schema"
-import { ClientMessage } from "../types"
+import { ClientMessage } from "@/lib/core/domain/entities/Chat"
+import { Message } from "@/lib/infrastructure/services/AIService/schemas"
 
 export async function tryContinueConversation(
   userInput: Message

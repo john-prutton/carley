@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import { mealBreakdownSchema } from "@/lib/infrastructure/services/AIService/schemas"
 
-import { mealBreakdownSchema } from "../../schema"
 import { FoodItemList } from "./food-item-list"
 import { Totals } from "./totals"
 

@@ -1,32 +1,30 @@
 import "server-only"
 
-import { generateChatResponse } from "@/app/(app)/home/lib/actions/generate-chat-response"
 import {
-  ChatResponse,
-  IChatService,
+  AIResponse,
+  IAIService,
   UserInput
-} from "@/lib/core/services/IChatService"
+} from "@/lib/core/services/IAIService"
+import { AIService as DefaultAIService } from "@/lib/infrastructure/services"
 
 type Signature = (
   inputs: {
     userInput: UserInput
   },
   dependencies?: {
-    ChatService: IChatService
+    AIService: IAIService
   }
 ) => Promise<
-  | { response: Promise<ChatResponse>; error?: undefined }
+  | { response: Promise<AIResponse>; error?: undefined }
   | { response?: undefined; error: string }
 >
 
 export const continueConversation: Signature = async (
   { userInput },
-  { ChatService } = {
-    ChatService: {
-      generateChatResponse
-    }
+  { AIService } = {
+    AIService: DefaultAIService
   }
 ) => {
-  const response = ChatService.generateChatResponse(userInput)
+  const response = AIService.generateAIResponse(userInput)
   return { response: response }
 }

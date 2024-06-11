@@ -1,4 +1,4 @@
-import { MessageBubble } from "./message-bubble"
+import { MessageBubble } from "@/components/chat/message-bubble"
 
 export function LoadingBubbles() {
   return (

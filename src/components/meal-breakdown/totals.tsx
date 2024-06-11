@@ -1,4 +1,4 @@
-import { FoodItem } from "../../schema"
+import { FoodItem } from "@/lib/infrastructure/services/AIService/schemas"
 
 export function Totals({ foodItemTotals }: { foodItemTotals: FoodItem }) {
   return (

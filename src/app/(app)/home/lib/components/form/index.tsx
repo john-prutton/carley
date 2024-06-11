@@ -6,9 +6,10 @@ import { useState } from "react"
 import { useActions } from "ai/rsc"
 import { nanoid } from "nanoid"
 
-import { messageSchema } from "../../schema"
-import { ClientMessage } from "../../types"
-import { MessageBubble } from "../message-bubble"
+import { MessageBubble } from "@/components/chat/message-bubble"
+import { ClientMessage } from "@/lib/core/domain/entities/Chat"
+import { messageSchema } from "@/lib/infrastructure/services/AIService/schemas"
+
 import { FormComponents } from "./form-components"
 
 export function Form({

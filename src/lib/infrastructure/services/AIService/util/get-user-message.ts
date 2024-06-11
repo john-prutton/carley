@@ -1,6 +1,6 @@
 import { CoreUserMessage, ImagePart, TextPart } from "ai"
 
-import { Message } from "../schema"
+import { Message } from "../schemas"
 
 /**
  * Get user's different inputs from their message.
