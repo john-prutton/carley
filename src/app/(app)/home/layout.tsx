@@ -1,7 +1,8 @@
 import { createAI } from "ai/rsc"
 
+import { ClientMessage, ServerMessage } from "@/lib/core/domain/entities/Chat"
+
 import { tryContinueConversation } from "./lib/actions"
-import { ClientMessage, ServerMessage } from "./lib/types"
 
 const AI = createAI<ServerMessage[], ClientMessage[]>({
   actions: {

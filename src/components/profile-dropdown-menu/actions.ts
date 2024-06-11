@@ -3,12 +3,12 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { lucia } from "@/lib/auth"
-import { signout } from "@/use-cases/auth/sign-out"
+import { signout } from "@/lib/core/application/use-cases/auth/sign-out"
+import { AuthService } from "@/lib/infrastructure/services"
 
 export async function trySignout() {
-  const sessionCookie = await cookies().get(lucia.sessionCookieName)
-  if (!!sessionCookie) cookies().set(await signout(sessionCookie.value))
+  const sessionId = AuthService.readSessionCookie(cookies().toString())
+  if (!!sessionId) cookies().set(await signout({ sessionId }, { AuthService }))
 
   redirect("/")
 }

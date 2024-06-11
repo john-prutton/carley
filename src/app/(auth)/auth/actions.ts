@@ -3,31 +3,28 @@
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { Cookie } from "lucia"
-
-import { urlFromBase } from "@/lib/utils"
-import { signin, signup } from "@/use-cases/auth"
-
 import {
-  SigninArguments,
-  signinSchema,
-  SignupArguments,
-  signupSchema
-} from "./schema"
+  AuthActionSignature,
+  signin,
+  signup
+} from "@/lib/core/application/use-cases/auth"
+import { UserRepository } from "@/lib/infrastructure/data-access/repositories"
+import { AuthService } from "@/lib/infrastructure/services"
+import { urlFromBase } from "@/lib/utils/url-from-base"
 
-const handleAuthAction =
-  <TData = SignupArguments | SigninArguments>(
-    authAction: (data: TData) => Promise<Cookie>,
-    schema: typeof signupSchema | typeof signinSchema
-  ) =>
-  async (data: TData): Promise<{ error: string } | undefined> => {
-    if (!schema.safeParse(data).success)
-      return {
-        error: "Invalid data"
-      }
+type AuthActionHandler = <TInputs, TDependencies>(
+  authAction: AuthActionSignature<TInputs, TDependencies>,
+  dependencies?: TDependencies
+) => (inputs: TInputs) => Promise<void | { error: string }>
 
+const handleAuthAction: AuthActionHandler =
+  (authAction, _dependencies) => async (inputs) => {
+    // if (!schema.safeParse(data).success)
+    //   return {
+    //     error: "Invalid data"
+    //   }
     try {
-      const sessionCookie = await authAction(data)
+      const sessionCookie = await authAction(inputs)
       cookies().set(sessionCookie)
     } catch (error) {
       return {
@@ -40,9 +37,14 @@ const handleAuthAction =
         "redirect"
       ) ?? "/home"
     ).toString()
-
     redirect(redirectUrl)
   }
 
-export const trySignup = handleAuthAction(signup, signupSchema)
-export const trySignin = handleAuthAction(signin, signinSchema)
+export const trySignup = handleAuthAction(signup, {
+  AuthService,
+  UserRepository
+})
+export const trySignin = handleAuthAction(signin, {
+  AuthService,
+  UserRepository
+})

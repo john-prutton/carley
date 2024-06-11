@@ -1,19 +1,13 @@
 "use server"
 
-import { continueConversation } from "@/use-cases/ai/chat"
-
-import { MessageBubble } from "../components/message-bubble"
-import { Message } from "../schema"
-import { ClientMessage } from "../types"
-import { generateChatResponse } from "./generate-chat-response"
+import { MessageBubble } from "@/components/chat/message-bubble"
+import { continueConversation } from "@/lib/core/application/use-cases/ai/chat"
+import { ClientMessage, UserMessage } from "@/lib/core/domain/entities/Chat"
 
 export async function tryContinueConversation(
-  userInput: Message
+  userInput: UserMessage
 ): Promise<ClientMessage> {
-  const { response, error } = await continueConversation(
-    { userInput },
-    { generateChatResponse }
-  )
+  const { response, error } = await continueConversation({ userInput })
 
   if (error)
     return {

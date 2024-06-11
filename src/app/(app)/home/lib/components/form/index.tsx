@@ -6,9 +6,12 @@ import { useState } from "react"
 import { useActions } from "ai/rsc"
 import { nanoid } from "nanoid"
 
-import { messageSchema } from "../../schema"
-import { ClientMessage } from "../../types"
-import { MessageBubble } from "../message-bubble"
+import { MessageBubble } from "@/components/chat/message-bubble"
+import {
+  ClientMessage,
+  userMessageSchema
+} from "@/lib/core/domain/entities/Chat"
+
 import { FormComponents } from "./form-components"
 
 export function Form({
@@ -29,7 +32,7 @@ export function Form({
       success: isValidMessage,
       error,
       data: userInput
-    } = messageSchema.safeParse(formInput)
+    } = userMessageSchema.safeParse(formInput)
 
     if (!isValidMessage) {
       alert("Invalid message:" + error.message)

@@ -3,7 +3,7 @@ import "dotenv/config"
 import { defineConfig } from "drizzle-kit"
 
 export default defineConfig({
-  schema: "./src/data-access/schema",
+  schema: "./src/lib/data-access/db/schema",
   dialect: "sqlite",
   driver: "turso",
   dbCredentials: {
