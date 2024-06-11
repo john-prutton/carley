@@ -2,11 +2,10 @@
 
 import { MessageBubble } from "@/components/chat/message-bubble"
 import { continueConversation } from "@/lib/core/application/use-cases/ai/chat"
-import { ClientMessage } from "@/lib/core/domain/entities/Chat"
-import { Message } from "@/lib/infrastructure/services/AIService/schemas"
+import { ClientMessage, UserMessage } from "@/lib/core/domain/entities/Chat"
 
 export async function tryContinueConversation(
-  userInput: Message
+  userInput: UserMessage
 ): Promise<ClientMessage> {
   const { response, error } = await continueConversation({ userInput })
 
