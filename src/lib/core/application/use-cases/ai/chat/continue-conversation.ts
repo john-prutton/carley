@@ -1,5 +1,6 @@
 import "server-only"
 
+import { UserEntity } from "@/lib/core/domain/entities/User"
 import {
   AIResponse,
   IAIService,
@@ -10,6 +11,7 @@ import { AIService as DefaultAIService } from "@/lib/infrastructure/services"
 type Signature = (
   inputs: {
     userInput: UserInput
+    userId: UserEntity["id"]
   },
   dependencies?: {
     AIService: IAIService
@@ -20,11 +22,11 @@ type Signature = (
 >
 
 export const continueConversation: Signature = async (
-  { userInput },
+  { userInput, userId },
   { AIService } = {
     AIService: DefaultAIService
   }
 ) => {
-  const response = AIService.generateAIResponse(userInput)
+  const response = AIService.generateAIResponse(userInput, userId)
   return { response: response }
 }
