@@ -20,7 +20,7 @@ export function Conversation({
   if (conversation.length === 0)
     return (
       <div className="grid flex-grow place-content-center">
-        <FAQ className="w-full max-w-96" />
+        <FAQ className="mx-auto w-full max-w-[96%]" />
       </div>
     )
 
