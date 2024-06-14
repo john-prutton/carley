@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ClientMessage } from "@/lib/core/domain/entities/Chat"
 
+import { FAQ } from "./faq"
+
 export function Conversation({
   conversation
 }: {
@@ -14,6 +16,14 @@ export function Conversation({
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
   })
+
+  if (conversation.length === 0)
+    return (
+      <div className="grid flex-grow place-content-center">
+        <FAQ className="mx-auto w-full max-w-[96%]" />
+      </div>
+    )
+
   return (
     <ScrollArea ref={scrollRef} className="px-2">
       <div className="space-y-4 py-4">
