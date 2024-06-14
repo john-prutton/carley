@@ -8,12 +8,16 @@ import { LoadingBubbles, MessageBubble } from "@/components/chat"
 import { MealBreakdown } from "@/components/meal-breakdown"
 import { ServerMessage } from "@/lib/core/domain/entities/Chat"
 import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
+import { UserEntity } from "@/lib/core/domain/entities/User"
 import { IAIService, UserInput } from "@/lib/core/services/IAIService"
 
-import { getUserMessage } from "./util"
+import { getCutoffDate, getUserMessage, humanizeTimeFrame } from "./util"
 
 export const AIService: IAIService = {
-  generateAIResponse: async (userInput: UserInput) => {
+  generateAIResponse: async (
+    userInput: UserInput,
+    userId: UserEntity["id"]
+  ) => {
     const history = getMutableAIState()
 
     const userMessage = await getUserMessage(userInput)
@@ -63,6 +67,42 @@ export const AIService: IAIService = {
                   I&apos;ve analyzed your meal and here&apos;s the breakdown.
                 </MessageBubble>
                 <MealBreakdown mealBreakdown={mealBreakdown.object} />
+              </>
+            )
+          }
+        },
+
+        mealHistory: {
+          description:
+            "View the history of meals that have been analyzed based on a provided time frame.",
+          parameters: z.object({
+            delta: z
+              .number()
+              .int()
+              .positive()
+              .describe("The number of milliseconds to look back in time.")
+          }),
+
+          generate: async function* ({ delta }) {
+            const cutoff = getCutoffDate(delta)
+            const humanTimeFrame = humanizeTimeFrame(cutoff)
+
+            yield (
+              <>
+                <MessageBubble role="assistant">
+                  Calculating meal history since {humanTimeFrame}.
+                </MessageBubble>
+                <LoadingBubbles />
+              </>
+            )
+
+            console.log(`getting ${userId}'s meal history`)
+            await new Promise((resolve) => setTimeout(resolve, 2000))
+            return (
+              <>
+                <MessageBubble role="assistant">
+                  Here&apos;s your meal history since {humanTimeFrame}.
+                </MessageBubble>
               </>
             )
           }

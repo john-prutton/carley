@@ -1,3 +1,5 @@
+import { UserEntity } from "../domain/entities/User"
+
 export type UserInput = { textInput?: string; fileInput?: File }
 export type AIResponse = {
   id: string
@@ -6,5 +8,8 @@ export type AIResponse = {
 }
 
 export interface IAIService {
-  generateAIResponse: (userInput: UserInput) => Promise<AIResponse>
+  generateAIResponse: (
+    userInput: UserInput,
+    userId: UserEntity["id"]
+  ) => Promise<AIResponse>
 }
