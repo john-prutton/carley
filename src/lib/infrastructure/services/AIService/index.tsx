@@ -6,6 +6,7 @@ import { z } from "zod"
 
 import { LoadingBubbles, MessageBubble } from "@/components/chat"
 import { MealBreakdown } from "@/components/meal-breakdown"
+import { getMealsInTimeFrame } from "@/lib/core/application/use-cases/meals/get-meals-in-time-frame"
 import { ServerMessage } from "@/lib/core/domain/entities/Chat"
 import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
 import { UserEntity } from "@/lib/core/domain/entities/User"
@@ -96,12 +97,15 @@ export const AIService: IAIService = {
               </>
             )
 
-            console.log(`getting ${userId}'s meal history`)
-            await new Promise((resolve) => setTimeout(resolve, 2000))
+            const meals = await getMealsInTimeFrame({ userId, cutoff })
+
             return (
               <>
                 <MessageBubble role="assistant">
                   Here&apos;s your meal history since {humanTimeFrame}.
+                </MessageBubble>
+                <MessageBubble role="assistant">
+                  Meals found: {meals.length}
                 </MessageBubble>
               </>
             )

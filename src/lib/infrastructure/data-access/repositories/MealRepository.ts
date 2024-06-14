@@ -1,3 +1,5 @@
+import { and, eq, gte } from "drizzle-orm"
+
 import { IMealRepository } from "@/lib/core/domain/repositories/IMealRepository"
 
 import { db } from "../db"
@@ -11,5 +13,16 @@ export const MealRepository: IMealRepository = {
       .returning()
 
     return insertedMeal
+  },
+
+  getUserMealsInTimeFrame: async (userId, cutoff) => {
+    const meals = await db
+      .select()
+      .from(mealTable)
+      .where(
+        and(eq(mealTable.userId, userId), gte(mealTable.createdAt, cutoff))
+      )
+
+    return meals
   }
 }

@@ -6,4 +6,9 @@ export interface IMealRepository {
     meal: MealBreakdown,
     userId: UserEntity["id"]
   ) => Promise<MealBreakdownEntity>
+
+  getUserMealsInTimeFrame: (
+    userId: UserEntity["id"],
+    cutoff: Date
+  ) => Promise<MealBreakdownEntity[]>
 }
