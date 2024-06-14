@@ -25,4 +25,5 @@ export type MealBreakdown = z.infer<typeof mealBreakdownSchema>
 export type MealBreakdownEntity = MealBreakdown & {
   id: number
   userId: UserEntity["id"]
+  createdAt: Date
 }

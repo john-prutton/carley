@@ -12,7 +12,10 @@ export const mealTable = sqliteTable("meals", {
   description: text("description").notNull(),
   foodItems: text("food_items", { mode: "json" })
     .notNull()
-    .$type<MealBreakdownEntity["foodItems"]>()
+    .$type<MealBreakdownEntity["foodItems"]>(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" })
+    .notNull()
+    .$default(() => new Date())
 })
 
 const _: MealBreakdownEntity = {} as typeof mealTable.$inferSelect
