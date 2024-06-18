@@ -15,7 +15,7 @@ export function Hints({ className }: { className?: string }) {
       <HintCard
         icon={LucideAreaChart}
         title="View Meal History"
-        content="View a history of all the meals you've analyzed. You can see a breakdown of the nutritional information for each meal, as well as any notes you've written down."
+        content="View a history of the meals you've analyzed within a time frame. You can see a breakdown of the nutritional information for each meal."
       />
     </div>
   )
