@@ -12,7 +12,12 @@ import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
 import { UserEntity } from "@/lib/core/domain/entities/User"
 import { IAIService, UserInput } from "@/lib/core/services/IAIService"
 
-import { getCutoffDate, getUserMessage, humanizeTimeFrame } from "./util"
+import {
+  getCutoffDate,
+  getMealTotalsByDate,
+  getUserMessage,
+  humanizeTimeFrame
+} from "./util"
 
 export const AIService: IAIService = {
   generateAIResponse: async (
@@ -99,13 +104,26 @@ export const AIService: IAIService = {
 
             const meals = await getMealsInTimeFrame({ userId, cutoff })
 
+            if (meals.length === 0)
+              return (
+                <MessageBubble role="assistant">
+                  No meals found since {humanTimeFrame}. Try a different time
+                  frame.
+                </MessageBubble>
+              )
+
+            const mealHistoryTotals = getMealTotalsByDate(meals)
+
             return (
               <>
                 <MessageBubble role="assistant">
                   Here&apos;s your meal history since {humanTimeFrame}.
                 </MessageBubble>
                 <MessageBubble role="assistant">
-                  Meals found: {meals.length}
+                  {Array.from(mealHistoryTotals.entries()).map(
+                    ([date, totals]) =>
+                      `${new Date(date).toDateString()}: ${totals.calories} calories, ${totals.proteins}g proteins, ${totals.carbohydrates}g carbohydrates, ${totals.fats}g fats.`
+                  )}
                 </MessageBubble>
               </>
             )
