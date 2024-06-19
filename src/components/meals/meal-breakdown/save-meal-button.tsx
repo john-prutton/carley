@@ -4,10 +4,10 @@ import { useState } from "react"
 
 import { LucideCheck } from "lucide-react"
 
+import { Spinner } from "@/components/spinner"
+import { Button } from "@/components/ui/button"
 import { MealBreakdown } from "@/lib/core/domain/entities/MealBreakdown"
 
-import { Spinner } from "../spinner"
-import { Button } from "../ui/button"
 import { trySaveMeal } from "./actions"
 
 export function SaveMealButton({

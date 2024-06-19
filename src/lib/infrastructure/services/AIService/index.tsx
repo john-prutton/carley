@@ -5,7 +5,7 @@ import { nanoid } from "nanoid"
 import { z } from "zod"
 
 import { LoadingBubbles, MessageBubble } from "@/components/chat"
-import { MealBreakdown } from "@/components/meal-breakdown"
+import { MealBreakdown } from "@/components/meals"
 import { getMealsInTimeFrame } from "@/lib/core/application/use-cases/meals/get-meals-in-time-frame"
 import { ServerMessage } from "@/lib/core/domain/entities/Chat"
 import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
