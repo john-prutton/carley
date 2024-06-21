@@ -1,11 +1,9 @@
 import { startOfDay } from "date-fns/startOfDay"
 
 import {
-  FoodItem,
+  FoodItemTotals,
   MealBreakdownEntity
 } from "@/lib/core/domain/entities/MealBreakdown"
-
-type FoodItemTotals = Omit<FoodItem, "description">
 
 export const getMealTotalsByDate = (meals: MealBreakdownEntity[]) => {
   const totals = new Map<number, FoodItemTotals>()

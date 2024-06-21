@@ -89,8 +89,6 @@ export const AIService: IAIService = {
           }),
 
           generate: async function* ({ delta }) {
-            return <MealHistoryChart />
-
             const cutoff = getCutoffDate(delta)
             const humanTimeFrame = humanizeTimeFrame(cutoff)
 
@@ -120,12 +118,10 @@ export const AIService: IAIService = {
                 <MessageBubble role="assistant">
                   Here&apos;s your meal history since {humanTimeFrame}.
                 </MessageBubble>
-                <MessageBubble role="assistant">
-                  {Array.from(mealHistoryTotals.entries()).map(
-                    ([date, totals]) =>
-                      `${new Date(date).toDateString()}: ${totals.calories} calories, ${totals.proteins}g proteins, ${totals.carbohydrates}g carbohydrates, ${totals.fats}g fats.`
-                  )}
-                </MessageBubble>
+                <MealHistoryChart
+                  cutoffDate={cutoff}
+                  mealTotals={mealHistoryTotals}
+                />
               </>
             )
           }
