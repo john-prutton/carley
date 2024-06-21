@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { AuthService } from "@/lib/infrastructure/services"
+import { AuthService } from "@/lib/infrastructure/services/AuthService"
 
 export async function GET(request: Request) {
   const sessionId = AuthService.readSessionCookie(

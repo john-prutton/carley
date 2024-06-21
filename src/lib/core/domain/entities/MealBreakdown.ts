@@ -1,5 +1,7 @@
 import { z } from "zod"
 
+import { UserEntity } from "./User"
+
 const foodItemSchema = z.object({
   description: z.string().describe("description of the food item"),
   weight: z
@@ -12,6 +14,7 @@ const foodItemSchema = z.object({
 })
 
 export type FoodItem = z.infer<typeof foodItemSchema>
+export type FoodItemTotals = Omit<FoodItem, "description">
 
 export const mealBreakdownSchema = z.object({
   description: z.string().describe("description of the meal"),
@@ -19,3 +22,9 @@ export const mealBreakdownSchema = z.object({
 })
 
 export type MealBreakdown = z.infer<typeof mealBreakdownSchema>
+
+export type MealBreakdownEntity = MealBreakdown & {
+  id: number
+  userId: UserEntity["id"]
+  createdAt: Date
+}

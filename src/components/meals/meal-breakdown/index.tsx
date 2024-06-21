@@ -4,12 +4,14 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
 import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
 
 import { FoodItemList } from "./food-item-list"
+import { SaveMealButton } from "./save-meal-button"
 import { Totals } from "./totals"
 
 export function MealBreakdown({
@@ -40,6 +42,10 @@ export function MealBreakdown({
       <CardContent>
         <FoodItemList foodItems={mealBreakdown.foodItems} />
       </CardContent>
+
+      <CardFooter>
+        <SaveMealButton mealBreakdown={mealBreakdown} />
+      </CardFooter>
     </Card>
   )
 }
