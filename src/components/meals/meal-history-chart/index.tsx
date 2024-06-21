@@ -1,4 +1,5 @@
-import { format, formatDistanceToNow } from "date-fns"
+import { format } from "date-fns/format"
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FoodItemTotals } from "@/lib/core/domain/entities/MealBreakdown"
