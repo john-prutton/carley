@@ -1,4 +1,6 @@
-import { intlFormatDistance, startOfDay, subMilliseconds } from "date-fns"
+import { intlFormatDistance } from "date-fns/intlFormatDistance"
+import { startOfDay } from "date-fns/startOfDay"
+import { subMilliseconds } from "date-fns/subMilliseconds"
 
 export const getCutoffDate = (delta: number) =>
   startOfDay(subMilliseconds(new Date(), delta))
