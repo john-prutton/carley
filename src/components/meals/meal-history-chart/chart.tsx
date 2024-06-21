@@ -2,6 +2,7 @@
 
 import {
   Area,
+  Brush,
   CartesianGrid,
   ComposedChart,
   Label,
@@ -122,8 +123,8 @@ export function Chart({
         {lineChart}
 
         <CartesianGrid />
-        <XAxis dataKey="date" tickMargin={10} />
-
+        <XAxis dataKey="date" tickMargin={10} height={50} />
+        <Brush height={20} />
         <Tooltip content={<CustomTooltip />} />
       </ComposedChart>
     </ResponsiveContainer>
@@ -145,11 +146,12 @@ function CustomTooltip({
         <p
           key={entry.dataKey}
           className={
-            colorMap.get(entry.dataKey as keyof FoodItemTotals)?.topColor ??
-            "text-red-500"
+            colorMap.get(entry.dataKey as keyof FoodItemTotals)?.topColor
           }
         >
-          {entry.dataKey}: {entry.value}
+          {entry.dataKey!.toString()[0].toUpperCase() +
+            entry.dataKey!.toString().substring(1)}
+          : {entry.value} {entry.dataKey === "calories" ? "kcal" : "g"}
         </p>
       ))}
     </div>

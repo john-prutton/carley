@@ -15,7 +15,7 @@ export function MealHistoryChart({
   const data = Array.from(mealTotals.entries())
     .sort((a, b) => a[0] - b[0])
     .map(([date, totals]) => ({
-      date: format(new Date(date), "dd/mm/yyyy"),
+      date: format(new Date(date), "dd/MM/yyyy"),
       ...totals
     }))
 
