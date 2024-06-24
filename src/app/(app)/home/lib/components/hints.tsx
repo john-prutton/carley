@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils/cn"
 export function Hints({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-4", className)}>
+      <p className="text-center text-muted-foreground">Use the chat to</p>
+
       <HintCard
         icon={LucideCamera}
         title="Analyze a Photo"

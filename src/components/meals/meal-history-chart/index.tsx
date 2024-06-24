@@ -1,3 +1,4 @@
+import { eachDayOfInterval } from "date-fns/eachDayOfInterval"
 import { format } from "date-fns/format"
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow"
 
@@ -13,10 +14,21 @@ export function MealHistoryChart({
   cutoffDate: Date
   mealTotals: Map<number, FoodItemTotals>
 }) {
-  const data = Array.from(mealTotals.entries())
-    .sort((a, b) => a[0] - b[0])
-    .map(([date, totals]) => ({
-      date: format(new Date(date), "dd/MM/yyyy"),
+  const data = eachDayOfInterval({ start: cutoffDate, end: new Date() })
+    .map((date) => {
+      const totals = mealTotals.get(date.getTime()) ?? {
+        weight: 0,
+        calories: 0,
+        carbohydrates: 0,
+        proteins: 0,
+        fats: 0
+      }
+
+      return { date, ...totals }
+    })
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .map(({ date, ...totals }) => ({
+      date: format(date, "dd/MM/yyyy"),
       ...totals
     }))
 
