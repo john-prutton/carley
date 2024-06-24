@@ -4,20 +4,19 @@ import { getMutableAIState, streamUI } from "ai/rsc"
 import { nanoid } from "nanoid"
 import { z } from "zod"
 
-import { LoadingBubbles, MessageBubble } from "@/components/chat"
-import { MealBreakdown, MealHistoryChart } from "@/components/meals"
+import { LoadingBubbles } from "@/components/chat/loading-bubbles"
+import { MessageBubble } from "@/components/chat/message-bubble"
+import { MealBreakdown } from "@/components/meals/meal-breakdown"
+import { MealHistoryChart } from "@/components/meals/meal-history-chart"
 import { getMealsInTimeFrame } from "@/lib/core/application/use-cases/meals/get-meals-in-time-frame"
 import { ServerMessage } from "@/lib/core/domain/entities/Chat"
 import { mealBreakdownSchema } from "@/lib/core/domain/entities/MealBreakdown"
 import { UserEntity } from "@/lib/core/domain/entities/User"
 import { IAIService, UserInput } from "@/lib/core/services/IAIService"
 
-import {
-  getCutoffDate,
-  getMealTotalsByDate,
-  getUserMessage,
-  humanizeTimeFrame
-} from "./util"
+import { getCutoffDate, humanizeTimeFrame } from "./util/date-util"
+import { getUserMessage } from "./util/get-user-message"
+import { getMealTotalsByDate } from "./util/meals"
 
 export const AIService: IAIService = {
   generateAIResponse: async (
@@ -90,8 +89,6 @@ export const AIService: IAIService = {
           }),
 
           generate: async function* ({ delta }) {
-            return <MealHistoryChart />
-
             const cutoff = getCutoffDate(delta)
             const humanTimeFrame = humanizeTimeFrame(cutoff)
 
@@ -121,12 +118,10 @@ export const AIService: IAIService = {
                 <MessageBubble role="assistant">
                   Here&apos;s your meal history since {humanTimeFrame}.
                 </MessageBubble>
-                <MessageBubble role="assistant">
-                  {Array.from(mealHistoryTotals.entries()).map(
-                    ([date, totals]) =>
-                      `${new Date(date).toDateString()}: ${totals.calories} calories, ${totals.proteins}g proteins, ${totals.carbohydrates}g carbohydrates, ${totals.fats}g fats.`
-                  )}
-                </MessageBubble>
+                <MealHistoryChart
+                  cutoffDate={cutoff}
+                  mealTotals={mealHistoryTotals}
+                />
               </>
             )
           }

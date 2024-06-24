@@ -14,6 +14,7 @@ const foodItemSchema = z.object({
 })
 
 export type FoodItem = z.infer<typeof foodItemSchema>
+export type FoodItemTotals = Omit<FoodItem, "description">
 
 export const mealBreakdownSchema = z.object({
   description: z.string().describe("description of the meal"),
