@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "packageManager": "pnpm@9.1.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.14",
     "@hookform/resolvers": "^3.4.2",
