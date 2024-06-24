@@ -1,6 +1,6 @@
 import { CoreUserMessage, ImagePart, TextPart } from "ai"
 
-import { UserMessage } from "@/lib/core/domain/entities/Chat"
+import { UserInput } from "@/lib/core/services/IAIService"
 
 /**
  * Get user's different inputs from their message.
@@ -9,7 +9,7 @@ import { UserMessage } from "@/lib/core/domain/entities/Chat"
  * @param message
  * @returns
  */
-export function getUserMessage(message: UserMessage) {
+export function getUserMessage(message: UserInput) {
   // get the text and image parts from the user input
   const textPart: TextPart | undefined = message.textInput
     ? {
