@@ -17,7 +17,7 @@ type Signature = (
     AIService: IAIService
   }
 ) => Promise<
-  | { response: Promise<AIResponse>; error?: undefined }
+  | { response: AIResponse; error?: undefined }
   | { response?: undefined; error: string }
 >
 
@@ -27,6 +27,6 @@ export const continueConversation: Signature = async (
     AIService: DefaultAIService
   }
 ) => {
-  const response = AIService.generateAIResponse(userInput, userId)
-  return { response: response }
+  const response = await AIService.generateAIResponse(userInput, userId)
+  return { response }
 }

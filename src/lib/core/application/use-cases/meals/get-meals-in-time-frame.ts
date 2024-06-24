@@ -8,7 +8,7 @@ type Signature = (
   dependencies?: { MealRepository: IMealRepository }
 ) => Promise<MealBreakdownEntity[]>
 
-export const getMealsInTimeFrame: Signature = async (
+export const getMealsInTimeFrame: Signature = (
   { userId, cutoff },
   { MealRepository } = { MealRepository: DefaultMealRepository }
 ) => {

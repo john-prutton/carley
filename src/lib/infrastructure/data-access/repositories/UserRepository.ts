@@ -7,7 +7,7 @@ import { db, schema } from "../db"
 export const UserRepository: IUserRepository = {
   getAllUsers: async () => {
     try {
-      return db.select().from(schema.userTable)
+      return await db.select().from(schema.userTable)
     } catch (error) {
       throw new Error(`Failed to get all users: ${error}`)
     }
