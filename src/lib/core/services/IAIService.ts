@@ -1,6 +1,6 @@
 import { UserEntity } from "../domain/entities/User"
 
-export type UserInput = { textInput?: string; fileInput?: File }
+export type UserInput = { textInput?: string; fileInput?: ArrayBuffer }
 export type AIResponse = {
   id: string
   role: "assistant"

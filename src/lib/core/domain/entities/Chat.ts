@@ -22,16 +22,11 @@ export const userMessageSchema = z
       .describe("the user's text input"),
 
     fileInput: z
-      .any()
-      .transform((file) =>
-        file instanceof File && file.size > 0 ? file : undefined
-      )
+      .string()
+      .refine((s) => s.startsWith("data:image/"), {
+        message: "Must be an image"
+      })
       .optional()
-      .refine(
-        (file: File | undefined) =>
-          !!file ? file.type.startsWith("image/") : true,
-        "Must be an image"
-      )
       .describe("the user's file input")
   })
   .refine(

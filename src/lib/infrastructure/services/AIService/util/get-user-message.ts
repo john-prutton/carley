@@ -9,7 +9,7 @@ import { UserMessage } from "@/lib/core/domain/entities/Chat"
  * @param message
  * @returns
  */
-export async function getUserMessage(message: UserMessage) {
+export function getUserMessage(message: UserMessage) {
   // get the text and image parts from the user input
   const textPart: TextPart | undefined = message.textInput
     ? {
@@ -20,7 +20,7 @@ export async function getUserMessage(message: UserMessage) {
   const imagePart: ImagePart | undefined = message.fileInput
     ? {
         type: "image",
-        image: await message.fileInput.arrayBuffer()
+        image: message.fileInput
       }
     : undefined
 
