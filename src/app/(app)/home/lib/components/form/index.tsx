@@ -56,6 +56,8 @@ export function Form({
 
     const userMessage = { id: nanoid(), role: "user" }
 
+    const message = await tryContinueConversation(userInput)
+
     setConversation((currentConversation: ClientMessage[]) => [
       ...currentConversation,
       {
@@ -83,13 +85,7 @@ export function Form({
             )}
           </>
         )
-      }
-    ])
-
-    const message = await tryContinueConversation(userInput)
-
-    setConversation((currentConversation: ClientMessage[]) => [
-      ...currentConversation,
+      },
       message
     ])
 
