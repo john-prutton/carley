@@ -68,9 +68,6 @@ export const AIService: IAIService = {
 
             return (
               <>
-                <MessageBubble role="assistant">
-                  I&apos;ve analyzed your meal and here&apos;s the breakdown.
-                </MessageBubble>
                 <MealBreakdown mealBreakdown={mealBreakdown.object} />
               </>
             )
@@ -115,9 +112,6 @@ export const AIService: IAIService = {
 
             return (
               <>
-                <MessageBubble role="assistant">
-                  Here&apos;s your meal history since {humanTimeFrame}.
-                </MessageBubble>
                 <MealHistoryChart
                   cutoffDate={cutoff}
                   mealTotals={mealHistoryTotals}
