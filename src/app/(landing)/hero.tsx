@@ -8,7 +8,7 @@ export function Hero() {
     <section className="group mx-auto flex w-fit flex-col items-center gap-y-8 py-32">
       <SplashLogo />
 
-      <h1 className="text-2xl tracking-wider">
+      <h1 className="text-center text-2xl tracking-wider">
         Effortlessly track your nutrition
       </h1>
 
