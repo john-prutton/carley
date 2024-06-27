@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import localFont from "next/font/local"
 
 import PlausibleProvider from "next-plausible"
@@ -13,6 +13,10 @@ const geistMono = localFont({
   src: "../../public/fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono"
 })
+
+export const viewport: Viewport = {
+  maximumScale: 1
+}
 
 export const metadata: Metadata = {
   title: "Create Next App",
