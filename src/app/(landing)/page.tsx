@@ -5,11 +5,12 @@ import mockupMealHistoryZoomed from "@/../public/img/mockups/meal-history-zoomed
 
 import { Feature } from "./feature"
 import { FeatureWithMockup } from "./feature-with-mockup"
+import { Footer } from "./footer"
 import { Hero } from "./hero"
 
 export default function Home() {
   return (
-    <main className="pb-32">
+    <main>
       <Hero />
 
       <div className="mx-auto max-w-5xl space-y-32 px-8">
@@ -85,6 +86,8 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      <Footer />
     </main>
   )
 }
