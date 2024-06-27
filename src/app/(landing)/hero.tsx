@@ -12,12 +12,23 @@ export function Hero() {
         Effortlessly track your nutrition
       </h1>
 
-      <Button
-        asChild
-        className="w-[150%] max-w-[90svw] animate-pulse py-6 text-xl group-hover:animate-none"
-      >
-        <Link href="/home">Get Started</Link>
-      </Button>
+      <div className="flex w-[150%] max-w-[90svw] flex-col gap-2 md:flex-row">
+        <Button
+          asChild
+          className="w-full animate-pulse py-6 text-xl group-hover:animate-none"
+        >
+          <Link href="/home">Get Started</Link>
+        </Button>
+
+        <Button asChild variant={"link"} className="w-full py-6 text-xl">
+          <Link
+            href="https://www.youtube.com/channel/UCWcvR_llV6M0CFkCPcZO-Ew"
+            target="_blank"
+          >
+            Watch Demo Video
+          </Link>
+        </Button>
+      </div>
     </section>
   )
 }
