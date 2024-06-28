@@ -96,7 +96,11 @@ export function AuthForm({
                         <FormLabel>Username</FormLabel>
 
                         <FormControl>
-                          <Input {...field} placeholder="john.doe" />
+                          <Input
+                            {...field}
+                            autoCapitalize="none"
+                            placeholder="john.doe"
+                          />
                         </FormControl>
                         <FormDescription />
                         <FormMessage />
