@@ -1,8 +1,11 @@
+import Link from "next/link"
+
+import { LucideHelpCircle } from "lucide-react"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 
@@ -18,9 +21,15 @@ export function ProfileDropdownMenu() {
           <ProfileIcon className="animate-in zoom-in-0" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="flex translate-y-2 flex-col gap-2">
+        <DropdownMenuItem asChild>
+          <Button asChild variant={"secondary"} size="sm" className="w-full">
+            <Link href="https://youtu.be/gj-Z_B9WII4" target="_blank">
+              <LucideHelpCircle className="mr-2" size={16} />
+              Demo Video
+            </Link>
+          </Button>
+        </DropdownMenuItem>
 
         <SignoutButton />
       </DropdownMenuContent>

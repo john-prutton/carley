@@ -9,7 +9,7 @@ export function Hero() {
       <SplashLogo />
 
       <h1 className="text-center text-2xl tracking-wider">
-        Effortlessly track your nutrition
+        Effortlessly track your nutrition with AI
       </h1>
 
       <div className="flex w-[150%] max-w-[90svw] flex-col gap-2 md:flex-row">
@@ -21,10 +21,7 @@ export function Hero() {
         </Button>
 
         <Button asChild variant={"link"} className="w-full py-6 text-xl">
-          <Link
-            href="https://www.youtube.com/channel/UCWcvR_llV6M0CFkCPcZO-Ew"
-            target="_blank"
-          >
+          <Link href="https://youtu.be/gj-Z_B9WII4" target="_blank">
             Watch Demo Video
           </Link>
         </Button>
