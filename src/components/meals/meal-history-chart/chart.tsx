@@ -142,7 +142,7 @@ function CustomTooltip({
     <div className="rounded-md bg-background p-2 text-foreground">
       <p>{label}</p>
 
-      {payload.map((entry) => (
+      {payload.toReversed().map((entry) => (
         <p
           key={entry.dataKey}
           className={
