@@ -26,7 +26,7 @@ export function Form({
   const { tryContinueConversation } = useActions()
 
   const imgInputRef = useRef<HTMLInputElement>(null)
-  const textAreaRef = useRef<HTMLTextAreaElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const [imgBase64Url, setImgBase64Url] = useState<string | null>(null)
 
@@ -64,12 +64,6 @@ export function Form({
         ...userMessage,
         display: (
           <>
-            {userInput.textInput && (
-              <MessageBubble role="user">
-                <p>{userInput.textInput}</p>
-              </MessageBubble>
-            )}
-
             {imgBase64Url && (
               <MessageBubble
                 role="user"
@@ -81,6 +75,11 @@ export function Form({
                   fill
                   className="object-cover"
                 />
+              </MessageBubble>
+            )}
+            {userInput.textInput && (
+              <MessageBubble role="user">
+                <p>{userInput.textInput}</p>
               </MessageBubble>
             )}
           </>
@@ -110,17 +109,11 @@ export function Form({
 
   const resetForm = () => {
     clearImage()
-
-    setTimeout(() => {
-      if (textAreaRef.current) {
-        textAreaRef.current.value = ""
-        textAreaRef.current.focus()
-      }
-    }, 200)
+    formRef.current?.reset()
   }
 
   return (
-    <form action={formAction}>
+    <form ref={formRef} action={formAction}>
       <Fieldset className="relative flex flex-row items-end gap-2 rounded-t-xl bg-white p-2 drop-shadow-sm">
         {imgBase64Url && (
           <div className="absolute top-0 w-fit -translate-y-full drop-shadow-xl">
@@ -163,16 +156,17 @@ export function Form({
         />
 
         <Textarea
-          ref={textAreaRef}
           name="textInput"
           rows={1}
           className="max-h-32 min-h-0 resize-none bg-white"
           autoFocus
           onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              event.preventDefault()
-              event.currentTarget.value += "\n"
-            }
+            if (
+              event.key === "Enter" &&
+              !event.shiftKey &&
+              window.innerWidth > 768
+            )
+              formRef.current?.requestSubmit()
           }}
         />
 

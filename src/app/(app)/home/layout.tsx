@@ -1,3 +1,5 @@
+import { Metadata, Viewport } from "next"
+
 import { createAI } from "ai/rsc"
 
 import { ClientMessage, ServerMessage } from "@/lib/core/domain/entities/Chat"
@@ -11,6 +13,11 @@ const AI = createAI<ServerMessage[], ClientMessage[]>({
   initialAIState: [],
   initialUIState: []
 })
+
+export const viewport: Viewport = {
+  themeColor: "white"
+}
+export const metadata: Metadata = { title: "Home" }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <AI>{children}</AI>

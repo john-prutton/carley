@@ -142,7 +142,7 @@ function CustomTooltip({
     <div className="rounded-md bg-background p-2 text-foreground">
       <p>{label}</p>
 
-      {payload.map((entry) => (
+      {payload.toReversed().map((entry) => (
         <p
           key={entry.dataKey}
           className={
@@ -151,7 +151,8 @@ function CustomTooltip({
         >
           {entry.dataKey!.toString()[0].toUpperCase() +
             entry.dataKey!.toString().substring(1)}
-          : {entry.value} {entry.dataKey === "calories" ? "kcal" : "g"}
+          : {(entry.value as number).toFixed(2)}{" "}
+          {entry.dataKey === "calories" ? "kcal" : "g"}
         </p>
       ))}
     </div>

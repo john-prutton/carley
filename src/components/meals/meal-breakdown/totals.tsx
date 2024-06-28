@@ -11,7 +11,8 @@ export function Totals({ foodItemTotals }: { foodItemTotals: FoodItem }) {
 
           return (
             <span key={key}>
-              {label}: {(value as number).toFixed(1)}g
+              {label}: {(value as number).toFixed(1)}
+              {label === "Calories" ? "kcal" : "g"}
             </span>
           )
         })}

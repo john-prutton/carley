@@ -1,6 +1,12 @@
+import { Metadata } from "next"
+
 import { SplashLogo } from "@/components/layout/splash-logo"
 
 import { AuthForm } from "./components/form"
+
+export const metadata: Metadata = {
+  title: "Sign In"
+}
 
 export default function Page({
   searchParams: { redirect: _redirect, signup }
