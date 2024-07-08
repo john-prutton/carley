@@ -8,9 +8,15 @@ export function Hero() {
     <section className="group mx-auto flex w-fit flex-col items-center gap-y-8 py-32">
       <SplashLogo />
 
-      <h1 className="text-center text-2xl tracking-wider">
-        Effortlessly track your nutrition with AI
+      <h1 className="text-center text-4xl font-bold">
+        <span className="text-primary">Stop guessing</span> your nutrition
       </h1>
+
+      <p className="text-center text-2xl tracking-wider">
+        Effortlessly track your nutrition with AI{" "}
+        <br className="hidden sm:block" />
+        and get personalized insights to reach your goals
+      </p>
 
       <div className="flex w-[150%] max-w-[90svw] flex-col gap-2 md:flex-row">
         <Button
